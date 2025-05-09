@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Champion - Phonics Competition Platform</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+        }
+
+        :root {
+            --primary-color: #6C63FF;
+            --accent-color: #FF6584;
+            --dark-color: #2F2E41;
+        }
+
+        body {
+            background: #c6c7c6;
+        }
+
+        .navbar {
+            background: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar h1 {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .hero {
+            position: relative;
+            padding: 6rem 5%;
+            text-align: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
+                        url('assets/winners/bg1.png')var(--primary-color);
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .hero .countdown {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        /* Sponsor Section Styles */
+        .sponsor-section {
+            background: linear-gradient(45deg, #f17c0d 0%, #ffd76a 100%);
+            padding: 2rem 5%;
+            margin: 2rem 5%;
+            border-radius: 15px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: 0 4px 15px rgba(255,106,136,0.3);
+            position: relative;
+        }
+
+        .sponsor-badge {
+            background: #fff;
+            color: #FF6A88;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .sponsor-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid white;
+            object-fit: cover;
+        }
+
+        .sponsor-content {
+            flex: 1;
+        }
+
+        .tuition-ad {
+            background: white;
+            padding: 0 1.5rem;
+            border-radius: 10px;
+            color: var(--dark-color);
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .tuition-ad.active {
+            max-height: 1000px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .toggle-ad-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: absolute;
+            right: 2rem;
+            bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-ad-btn:hover {
+            background: #5b54d6;
+        }
+
+        .toggle-ad-btn::after {
+            content: '▼';
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-ad-btn.active::after {
+            transform: rotate(180deg);
+        }
+
+        .student-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 2rem 5%;
+        }
+
+        .student-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .student-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .student-image {
+            height: 520px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .student-info {
+            padding: 1.5rem;
+        }
+
+        .badge {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: inline-block;
+        }
+
+        .countdown {
+            background: white;
+            padding: 2rem;
+            margin: 2rem 5%;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+        }
+
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 2rem 5%;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .timer {
+                display: flex;
+                justify-content: center;
+                color: red;
+                gap: 1.5rem;
+                font-size: 1.5rem;
+            }
+            
+            .time-segment {
+                text-align: center;
+                background: transparent;
+                padding: 1rem;
+                border-radius: 10px;
+                min-width: 80px;
+            }
+            
+            .time-segment span {
+                font-size: 2.5rem;
+                font-weight: 700;
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+            
+            .time-segment small {
+                font-size: 0.9rem;
+                opacity: 0.8;
+            }
+
+
+    .tuition-form {
+        display: none;
+        margin-top: 1rem;
+    }
+    
+    .tuition-form.active {
+        display: block;
+    }
+    
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    
+    .form-input {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-top: 0.5rem;
+    }
+    
+    .send-button {
+        background: #25D366;
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        @media (max-width: 768px) {
+            .sponsor-section {
+                flex-direction: column;
+                text-align: center;
+                padding-bottom: 4rem;
+            }
+            
+            .sponsor-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            .toggle-ad-btn {
+                position: static;
+                margin-top: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>🏆 Word Champion</h1>
+    </nav>
+
+    <section class="hero">
+        <div style="font-size: 50px; color: #ffd76a;">Next Phonics Challenge Starts In:</div>
+        <div class="countdown">
+            <div class="timer" id="timer"></div>
+            <button class="btn-primary">Loading...</button>
+        </div>
+    </section>
+
+    <section class="sponsor-section">
+        <img src="https://avatars.githubusercontent.com/u/105696656?v=4" class="sponsor-image" alt="Phonics Expert">
+        <div class="sponsor-content">
+            <div class="sponsor-badge">Official Sponsor</div>
+            <h3>Sir. Mick<br>
+            <small>Phonics Teacher | Crystal Heights International School</small></h3>
+            
+            <div class="contact-details">
+                📧 www.sirmick04@gmail.com<br>
+                📱 +233545800158
+                📱 +233279645804
+            </div>
+
+            <div class="tuition-ad">
+                <h4>🌟 Online Phonics Mastery Class 🌟</h4>
+                <p>Now offering affordable online sessions!</p>
+                <ul>
+                    <li>📚 Personalized 1-on-1 Sessions</li>
+                    <li>💰 Affordable Price</li>
+                </ul>
+                
+                <!-- Add this form -->
+                <div class="tuition-form" id="tuitionForm">
+                    <form onsubmit="return false" id="contactForm">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" class="form-input" id="userName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp:</label>
+                            <input type="tel" class="form-input" id="UserWhatsApp" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone:</label>
+                            <input type="tel" class="form-input" id="userPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Message:</label>
+                            <textarea class="form-input" id="userMessage" rows="3" required></textarea>
+                        </div>
+                        <button class="send-button" onclick="sendWhatsAppMessage()">
+                            📤 Send via WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <button class="toggle-ad-btn" onclick="toggleTuitionAd(this)">View Tuition Offer</button>
+    </section>
+
+    <section class="upcoming-events">
+        <h3 style="padding: 0 5%">Current Champion</h3>
+        <div class="student-grid">
+
+            <div class="student-card">
+                <div class="student-image" style="background-image: url('assets/winners/whonxt.png');"></div>
+                <div class="student-info">
+                    <span class="badge">???????</span>
+                    <h4>???????</h4>
+                    <p>Will It Be You?</p>
+                    <div style="font-size: 16px; color: grey">Coming Soon...</div>
+                </div>
+            </div>
+
+    </section>
+
+    <section class="upcoming-events">
+        <h3 style="padding: 0 5%">Standing Champions</h3>
+        <div class="student-grid">
+
+            <div class="student-card">
+                <div class="student-image" style="background-image: url('assets/winners/cvc-a-g1.png');"></div>
+                <div class="student-info">
+                    <span class="badge">Grade 1</span>
+                    <h4>Nunya Avotri</h4>
+                    <p>Vacation Contest</p>
+                    <div style="font-size: 10px; color: grey">April 17th 2025</div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-image" style="background-image: url('assets/winners/cvc-a-g2.png');"></div>
+                <div class="student-info">
+                    <span class="badge">Grade 2</span>
+                    <h4>Simon Ofori Ametepey</h4>
+                    <p>Vacation Contest</p>
+                    <div style="font-size: 10px; color: grey">April 17th 2025</div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-image" style="background-image: url('assets/winners/cvc-e-g1.png');"></div>
+                <div class="student-info">
+                    <span class="badge">Grade 1</span>
+                    <h4>Sarfowaa Nhyira Nana Ama</h4>
+                    <p>Vacation Contest</p>
+                    <div style="font-size: 10px; color: grey">April 18th 2025</div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-image" style="background-image: url('assets/winners/cvc-e-g2.png');"></div>
+                <div class="student-info">
+                    <span class="badge">Grade 2</span>
+                    <h4>Jehosheba Anima Yeboah</h4>
+                    <p>Vacation Contest</p>
+                    <div style="font-size: 10px; color: grey">April 18th 2025</div>
+                </div>
+            </div>
+        
+            <div class="student-card">
+                <div class="student-image" style="background-image: url('assets/winners/cvc-i-g1.png');"></div>
+                <div class="student-info">
+                    <span class="badge">Grade 1</span>
+                    <h4>Jordyn Ohemaa Annor-Darkwa</h4>
+                    <p>Vacation Contest</p>
+                    <div style="font-size: 10px; color: grey">April 19th 2025</div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-image" style="background-image: url('assets/winners/cvc-i-g2.png');"></div>
+                <div class="student-info">
+                    <span class="badge">Grade 2</span>
+                    <h4>Ivana Koranteng</h4>
+                    <p>Vacation Contest</p>
+                    <div style="font-size: 10px; color: grey">April 19th 2025</div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-image" style="background-image: url('assets/winners/cvc-o-g1.png');"></div>
+                <div class="student-info">
+                    <span class="badge">Grade 1</span>
+                    <h4>Godsway Agbenyegah Akplomeh</h4>
+                    <p>Vacation Contest</p>
+                    <div style="font-size: 10px; color: grey">April 20th 2025</div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-image" style="background-image: url('assets/winners/cvc-o-g2.png');"></div>
+                <div class="student-info">
+                    <span class="badge">Grade 2</span>
+                    <h4>Ivana Koranteng</h4>
+                    <p>Vacation Contest</p>
+                    <div style="font-size: 10px; color: grey">April 20th 2025</div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-image" style="background-image: url('assets/winners/cvc-u-g1.png');"></div>
+                <div class="student-info">
+                    <span class="badge">Grade 1</span>
+                    <h4>Sarfowaa Nhyira Nana Ama</h4>
+                    <p>Vacation Contest</p>
+                    <div style="font-size: 10px; color: grey">April 21st 2025</div>
+                </div>
+            </div>
+
+            <div class="student-card">
+                <div class="student-image" style="background-image: url('assets/winners/cvc-u-g2.png');"></div>
+                <div class="student-info">
+                    <span class="badge">Grade 2</span>
+                    <h4>Jehosheba Anima Yeboah</h4>
+                    <p>Vacation Contest</p>
+                    <div style="font-size: 10px; color: grey">April 21st 2025</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 Word Champion - Unleashing Phonics Excellence</p>
+    </footer>
+
+    <script>
+         // Modify the toggleTuitionAd function
+    function toggleTuitionAd(btn) {
+        const sponsorSection = btn.closest('.sponsor-section');
+        const tuitionAd = sponsorSection.querySelector('.tuition-ad');
+        const tuitionForm = sponsorSection.querySelector('#tuitionForm');
+        
+        btn.classList.toggle('active');
+        tuitionAd.classList.toggle('active');
+        tuitionForm.classList.toggle('active');
+    }
+
+    // WhatsApp message function
+    function sendWhatsAppMessage() {
+        const name = document.getElementById('userName').value;
+        const email = document.getElementById('UserWhatsApp').value;
+        const phone = document.getElementById('userPhone').value;
+        const message = document.getElementById('userMessage').value;
+        
+        // Sponsor's WhatsApp number (format: 233545800158 without + or 0)
+        const sponsorNumber = '233545800158'; 
+        
+        const formattedMessage = encodeURIComponent(
+            `New Phonics Class Inquiry\n\n` +
+            `Name: ${name}\n` +
+            `Email: ${email}\n` +
+            `Phone: ${phone}\n` +
+            `Message: ${message}`
+        );
+
+        const whatsappUrl = `https://wa.me/${sponsorNumber}?text=${formattedMessage}`;
+        
+        window.open(whatsappUrl, '_blank');
+        
+        // Clear form after submission
+        document.getElementById('contactForm').reset();
+    }
+
+        function updateTimer() {
+            const timerElement = document.getElementById('timer');
+            
+            // Set your event date here (YYYY, MM-1, DD, HH, MM, SS)
+            const eventDate = new Date(2025, 4, 11, 10, 0, 0); // October 31 2023 10:00:00
+
+            function update() {
+                const currentDate = new Date();
+                const diff = eventDate - currentDate;
+
+                if (diff <= 0) {
+                    timerElement.innerHTML = 'Event has Started!';
+                    clearInterval(interval);
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                timerElement.innerHTML = `
+                    <div class="time-segment">
+                        <span>${String(days).padStart(2, '0')}</span>
+                        <small>Days</small>
+                    </div>
+                    <div class="time-segment">
+                        <span>${String(hours).padStart(2, '0')}</span>
+                        <small>Hours</small>
+                    </div>
+                    <div class="time-segment">
+                        <span>${String(minutes).padStart(2, '0')}</span>
+                        <small>Minutes</small>
+                    </div>
+                    <div class="time-segment">
+                        <span>${String(seconds).padStart(2, '0')}</span>
+                        <small>Seconds</small>
+                    </div>
+
+                     <!--<div class="time-segment">
+                         <span>${Date.now()}</span>
+                         <small>Seconds</small>
+                     </div>-->
+                `;
+            }
+
+            update(); // Initial call
+            const interval = setInterval(update, 1000);
+        }
+
+        updateTimer();
+
+    </script>
+</body>
+</html>
