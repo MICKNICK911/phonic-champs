@@ -303,6 +303,35 @@
                 width: 100%;
                 justify-content: center;
             }
+            
+            .time-segment {
+                text-align: center;
+                background: transparent;
+                padding: 0px;
+                margin-bottom: 10px;
+                border-radius: 10px;
+                min-width: 80px;
+            }
+            
+            .time-segment span {
+                font-size: 50px;
+                font-weight: 700;
+                display: block;
+                margin-bottom: 0;
+            }
+            
+            .time-segment small {
+                font-size: 0.5rem;
+                opacity: 0.8;
+            }
+            
+            .timer {
+                display: flex;
+                justify-content: center;
+                color: red;
+                gap: 0px;
+            }
+            
         }
     </style>
 </head>
@@ -315,7 +344,12 @@
         <div style="font-size: 50px; color: #ffd76a;">Next Phonics Challenge Starts In:</div>
         <div class="countdown">
             <div class="timer" id="timer"></div>
-            <button class="btn-primary">Loading...</button>
+            <button class="btn-primary" 
+        style="background: var(--accent-color); margin-top: 1rem;"
+        onclick="playGame()">
+    Loading...
+</button>
+
         </div>
     </section>
 
@@ -339,6 +373,8 @@
                     <li>📚 Personalized 1-on-1 Sessions</li>
                     <li>💰 Affordable Price</li>
                 </ul>
+                
+                <h4 style="margin-top: 20px; color: #FF3D30">Book A Session Now</h4>
                 
                 <!-- Add this form -->
                 <div class="tuition-form" id="tuitionForm">
@@ -556,19 +592,19 @@
 
                 timerElement.innerHTML = `
                     <div class="time-segment">
-                        <span>${String(days).padStart(2, '0')}</span>
+                        <span>${String(days).padStart(0, '0')}</span>
                         <small>Days</small>
                     </div>
                     <div class="time-segment">
-                        <span>${String(hours).padStart(2, '0')}</span>
+                        <span>${String(hours).padStart(0, '0')}</span>
                         <small>Hours</small>
                     </div>
                     <div class="time-segment">
-                        <span>${String(minutes).padStart(2, '0')}</span>
+                        <span>${String(minutes).padStart(0, '0')}</span>
                         <small>Minutes</small>
                     </div>
                     <div class="time-segment">
-                        <span>${String(seconds).padStart(2, '0')}</span>
+                        <span>${String(seconds).padStart(0, '0')}</span>
                         <small>Seconds</small>
                     </div>
 
@@ -584,6 +620,12 @@
         }
 
         updateTimer();
+        
+        function playGame() {
+        // Replace with your actual booking URL
+        //window.open('https://MICKNICK911.github.io/phonics-games/index.html', '_blank');
+        window.open('#', '_blank');
+    }
 
     </script>
 </body>
