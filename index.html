@@ -226,7 +226,7 @@
         .timer {
                 display: flex;
                 justify-content: center;
-                color: red;
+                color: rgb(5, 253, 5);
                 gap: 1.5rem;
                 font-size: 1.5rem;
             }
@@ -341,13 +341,13 @@
     </nav>
 
     <section class="hero">
-        <div style="font-size: 50px; color: #ffd76a;">Next Phonics Challenge Starts In:</div>
-        <!--<div style="font-size: 50px; color: #ffd76a;">Ongoing phonics Challenge Ends In:</div>-->
+        <!-- <div style="font-size: 50px; color: #ffd76a;">Next Phonics Challenge Starts In:</div> -->
+        <div style="font-size: 50px; color: #ffd76a;">Ongoing phonics Challenge Ends In:</div>
         <div class="countdown">
             <div class="timer" id="timer"></div>
             <div style="display: flex; flex-direction: column;">
                 <button class="btn-primary" style="background: var(--accent-color); margin-top: 1rem;
-                "onclick="playGame()">Loading...</button>
+                "onclick="playGame()">Start Now</button>
                 <button class="btn-primary" style="background: var(--accent-color); margin-top: 1rem;
                 "onclick="submitGame()">Submit Score</button>
             </div>
@@ -575,7 +575,7 @@
             const timerElement = document.getElementById('timer');
             
             // Set your event date here (YYYY, MM-1, DD, HH, MM, SS)
-            const eventDate = new Date(2025, 4, 11, 10, 0, 0); // October 31 2023 10:00:00
+            const eventDate = new Date(2025, 4, 11, 20, 30, 0); // October 31 2023 10:00:00
 
             function update() {
                 const currentDate = new Date();
@@ -625,17 +625,17 @@
         
         function playGame() {
             // Replace with your actual booking URL
-            //window.open('https://MICKNICK911.github.io/phonics-games/templates/challenge/cha1000.html', '_blank');
-            window.open('#', '_blank');
+            window.open('https://MICKNICK911.github.io/phonics-games/templates/challenge/cha1000.html', '_blank');
+            //window.open('#', '_blank');
     }
 
         function submitGame() {
-            // const sponsorNumber = '233545800158';
-            // const message = "Here is a screenshot of my best score.";
-            // const whatsappUrl = `https://wa.me/${sponsorNumber}?text=${message}`;
+            const sponsorNumber = '233545800158';
+            const message = "Here is a screenshot of my best score.";
+            const whatsappUrl = `https://wa.me/${sponsorNumber}?text=${message}`;
             
-            // window.open(whatsappUrl, '_blank');
-            window.open('#', '_blank');
+            window.open(whatsappUrl, '_blank');
+            //window.open('#', '_blank');
         }
 
     </script>
