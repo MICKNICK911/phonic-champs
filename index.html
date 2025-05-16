@@ -347,10 +347,10 @@
             <div class="timer" id="timer"></div>
             <div style="display: flex; flex-direction: column;">
                 <button class="btn-primary" style="background: var(--accent-color); margin-top: 1rem;
-                "onclick="playGame()">Practice</button>
-               <!-- <button class="btn-primary" style="background: var(--accent-color); margin-top: 1rem;
+                "onclick="playGame()">Start Now</button>
+                <button class="btn-primary" style="background: var(--accent-color); margin-top: 1rem;
                 "onclick="submitGame()">Submit Score</button>
-            </div>-->
+            </div>
 
         </div>
     </section>
@@ -592,7 +592,7 @@
                 const diff = eventDate - currentDate;
 
                 if (diff <= 0) {
-                    timerElement.innerHTML = 'Event has Started!';
+                    timerElement.innerHTML = 'challenge has Started!';
                     clearInterval(interval);
                     return;
                 }
