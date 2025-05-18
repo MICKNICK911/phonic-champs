@@ -342,7 +342,7 @@
 
     <section class="hero">
         <!-- <div style="font-size: 50px; color: #ffd76a;">Next Phonics Challenge Starts In:</div> -->
-        <div style="font-size: 50px; color: #ffd76a;">Next Phonics Challenge Starts In:</div>
+        <div style="font-size: 50px; color: #ffd76a;">Phonics Challenge Ends In:</div>
         <div class="countdown">
             <div class="timer" id="timer"></div>
             <div style="display: flex; flex-direction: column;">
@@ -585,14 +585,14 @@
             const timerElement = document.getElementById('timer');
             
             // Set your event date here (YYYY, MM-1, DD, HH, MM, SS)
-            const eventDate = new Date(2025, 4, 17, 8, 30, 0); // October 31 2023 10:00:00
+            const eventDate = new Date(2025, 4, 18, 20, 30, 0); // October 31 2023 10:00:00
 
             function update() {
                 const currentDate = new Date();
                 const diff = eventDate - currentDate;
 
                 if (diff <= 0) {
-                    timerElement.innerHTML = 'challenge has Started!';
+                    timerElement.innerHTML = 'challenge has Ended!';
                     clearInterval(interval);
                     return;
                 }
